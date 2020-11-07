@@ -57,18 +57,30 @@ class ViewPagerFragment : Fragment() {
     private inner class ScreenSlidePagerAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = stories
         override fun createFragment(position: Int): Fragment {
-            val fragment = StoryFragment(storyChangeListener)
-            fragment.arguments = Bundle().apply {
+            val fragment1 = StoryFragment2(storyChangeListener)
+            fragment1.arguments = Bundle().apply {
                 // Our object is just an integer :-P
                 putInt("position", position)
             }
-            return fragment
+            val fragment2 = StoryFragment2(storyChangeListener)
+            fragment2.arguments = Bundle().apply {
+                // Our object is just an integer :-P
+                putInt("position", position)
+            }
+            if (position % 2 == 0) {
+                Log.i("Myposition","even")
+                return fragment2
+            } else {
+                Log.i("Myposition","odd")
+                return fragment2
+
+            }
         }
     }
 
     private fun onComplete(position: Int){
         if(binding.pager.currentItem < pagerAdapter!!.itemCount-1) {
-            binding.pager.currentItem++
+            binding.pager.currentItem = binding.pager.currentItem + 1
             Log.i("MyTagPagerCurrentItem", binding.pager.currentItem.toString())
 
         }

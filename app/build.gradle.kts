@@ -5,6 +5,7 @@ plugins {
     id(BuildPlugins.kotlinKapt)
     id(BuildPlugins.navigationSafeArgsPlugin)
 
+
 }
 
 android {

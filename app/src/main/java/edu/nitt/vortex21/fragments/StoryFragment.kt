@@ -8,6 +8,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.squareup.picasso.Picasso
@@ -26,7 +28,8 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
     private lateinit var viewPager2: ViewPager2
     private var imagesList:List<String>? = null
     private var storyids:List<String>? = null
-    private var counter=0
+    private var counter:Int = 0
+    private lateinit var count:MutableLiveData<Int>
     private var pressTime = 0L
     private var limit = 5000L
     private val onTouchListener = View.OnTouchListener {view, motionEvent ->
@@ -87,6 +90,9 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
            }
            skip.setOnTouchListener(onTouchListener)
        }
+        count.observe(viewLifecycleOwner, Observer {
+
+        })
 
     }
 
@@ -114,23 +120,23 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
        navHostFragment.navController.popBackStack(R.id.viewPagerFragment,true)*/
         Log.i("MyTagComplete",counter.toString())
         counter = 0
-        viewPager2.currentItem = requireArguments().getInt("position")
+      //  viewPager2.currentItem = requireArguments().getInt("position")
         storyViewListener.OnEndStory(requireArguments().getInt("position"))
 
     }
 
     override fun onPrev() {
-        if(counter>0) {
+        if(counter >0) {
             Picasso.get().load(imagesList!![--counter]).placeholder(R.drawable.vortex_logo)
                 .into(binding.imageStory)
             Log.i("MyTagPrev",counter.toString())
         }
-        else{
+        /*else{
 
             Log.i("MyTagPrev",counter.toString())
             counter = 0
             storyViewListener.onPrevStory()
-        }
+        }*/
     }
 
     override fun onNext() {

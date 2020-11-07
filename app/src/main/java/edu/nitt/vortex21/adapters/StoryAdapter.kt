@@ -22,7 +22,7 @@ class StoryAdapter(
         var storyImageSeen = view.findViewById(R.id.story_image_seen) as CircleImageView
         var storyImage = view.findViewById(R.id.story_image) as CircleImageView
         var storyName = view.findViewById(R.id.story_name) as TextView
-        fun bind(story: Story, clickListener:(Story)->Unit){
+        fun bind(story: Story, clickListener: (Story) -> Unit){
             view.story_name.text = story.storyName
             view.setOnClickListener{
                 clickListener(story)
